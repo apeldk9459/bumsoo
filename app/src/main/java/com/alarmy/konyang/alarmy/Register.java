@@ -31,7 +31,7 @@ import static com.alarmy.konyang.alarmy.Constant.Signup_URL;
 
 public class Register extends Activity {
 
-    String url;
+    String url=Signup_URL;
     EditText Id;
     EditText Passwd;
     EditText Passwd2;
@@ -40,13 +40,11 @@ public class Register extends Activity {
     EditText Club;
     EditText Email;
     EditText Grade;
-    Button Register;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        Register = (Button) findViewById(R.id.register1);
         Id = (EditText) findViewById(R.id.id);
         Passwd = (EditText) findViewById(R.id.passwd);
         Passwd2 = (EditText) findViewById(R.id.passwd2);
@@ -55,27 +53,25 @@ public class Register extends Activity {
         Club = (EditText) findViewById(R.id.club);
         Email = (EditText) findViewById(R.id.email);
         Grade = (EditText) findViewById(R.id.grade);
-        url=Signup_URL;
-        Register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                JSONObject js = new JSONObject();
-                try {
-                    js.accumulate("id", Id.getText().toString());
-                    js.accumulate("passwd",Passwd.getText().toString());
-                    js.accumulate("passwd2",Passwd2.getText().toString());
-                    js.accumulate("name",Name.getText().toString());
-                    js.accumulate("phone",Phone.getText().toString());
-                    js.accumulate("club", Club.getText().toString());
-                    js.accumulate("email",Email.getText().toString());
-                    js.accumulate("grade",Grade.getText().toString());
-                    VolleyPost(js.toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
     }
+
+    public void RegisterOk(View view){
+        JSONObject js = new JSONObject();
+        try {
+            js.accumulate("id", Id.getText().toString());
+            js.accumulate("passwd",Passwd.getText().toString());
+            js.accumulate("passwd2",Passwd2.getText().toString());
+            js.accumulate("name",Name.getText().toString());
+            js.accumulate("phone",Phone.getText().toString());
+            js.accumulate("club", Club.getText().toString());
+            js.accumulate("email",Email.getText().toString());
+            js.accumulate("grade",Grade.getText().toString());
+            VolleyPost(js.toString());
+        } catch (JSONException e) {
+        }
+    }
+
+
 
     public void VolleyPost(final String requestBody){
         RequestQueue queue = Volley.newRequestQueue(this);
