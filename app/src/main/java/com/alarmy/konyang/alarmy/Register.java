@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -56,18 +57,20 @@ public class Register extends Activity {
     }
 
     public void RegisterOk(View view){
-        JSONObject js = new JSONObject();
+
         try {
+            JSONObject js = new JSONObject();
             js.accumulate("id", Id.getText().toString());
-            js.accumulate("passwd",Passwd.getText().toString());
-            js.accumulate("passwd2",Passwd2.getText().toString());
-            js.accumulate("name",Name.getText().toString());
-            js.accumulate("phone",Phone.getText().toString());
+            js.accumulate("passwd", Passwd.getText().toString());
+            js.accumulate("passwd2", Passwd2.getText().toString());
+            js.accumulate("name", Name.getText().toString());
+            js.accumulate("phone", Phone.getText().toString());
             js.accumulate("club", Club.getText().toString());
-            js.accumulate("email",Email.getText().toString());
-            js.accumulate("grade",Grade.getText().toString());
+            js.accumulate("email", Email.getText().toString());
+            js.accumulate("grade", Grade.getText().toString());
             VolleyPost(js.toString());
         } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 
@@ -83,7 +86,7 @@ public class Register extends Activity {
                     Dialog(msg);
                     Toast.makeText(Register.this, msg, Toast.LENGTH_SHORT).show();
                 }catch (Exception e){
-
+                    e.printStackTrace();
                 }
             }
         }, new Response.ErrorListener() {

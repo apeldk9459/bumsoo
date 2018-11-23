@@ -47,7 +47,7 @@ public class MainActivity extends Activity {
     }
 
     public void Login(View view) throws JSONException {
-        JSONObject js = new JSONObject();
+      /*  JSONObject js = new JSONObject();
         try {
             js.accumulate("id", eId.getText().toString());
             js.accumulate("passwd", ePasswd.getText().toString());
@@ -55,7 +55,9 @@ public class MainActivity extends Activity {
             VolleyPost(js.toString());
         } catch (Exception e){
 
-        }
+        } */
+      Intent i = new Intent(MainActivity.this, MainPage.class);
+      startActivity(i);
     }
 
     public void VolleyPost(final String requestBody){
@@ -92,6 +94,7 @@ public class MainActivity extends Activity {
                 } catch (UnsupportedEncodingException uee) {
                     VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", requestBody, "utf-8");
                     return null;
+
                 }
             }
         };
