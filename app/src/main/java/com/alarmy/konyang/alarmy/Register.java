@@ -6,14 +6,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -24,15 +19,18 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.alarmy.konyang.alarmy.Constant.Signup_URL;
+import static com.alarmy.konyang.alarmy.Constant.REGISTER_URL;
 
 public class Register extends Activity {
 
-    String url=Signup_URL;
+    String url=REGISTER_URL;
     EditText Id;
     EditText Passwd;
     EditText Passwd2;
@@ -46,7 +44,7 @@ public class Register extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        Id = (EditText) findViewById(R.id.id);
+        Id = (EditText) findViewById(R.id.rid);
         Passwd = (EditText) findViewById(R.id.passwd);
         Passwd2 = (EditText) findViewById(R.id.passwd2);
         Name = (EditText) findViewById(R.id.name);
@@ -57,9 +55,8 @@ public class Register extends Activity {
     }
 
     public void RegisterOk(View view){
-
+             JSONObject js = new JSONObject();
         try {
-            JSONObject js = new JSONObject();
             js.accumulate("id", Id.getText().toString());
             js.accumulate("passwd", Passwd.getText().toString());
             js.accumulate("passwd2", Passwd2.getText().toString());
@@ -126,10 +123,7 @@ public class Register extends Activity {
             public void onClick(DialogInterface dialog, int which) {
                 // continue with delete
             }
-        })
-
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .show();
+        }).setIcon(android.R.drawable.ic_dialog_alert).show();
     }
 
     public void Cancel(View view){

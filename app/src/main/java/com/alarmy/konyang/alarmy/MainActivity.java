@@ -8,7 +8,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -109,12 +108,9 @@ public class MainActivity extends Activity {
             builder = new AlertDialog.Builder(MainActivity.this);
         }
         builder.setTitle(title).setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // continue with delete
-                    }
-                })
-
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .show();
+            public void onClick(DialogInterface dialog, int which) {
+                // continue with delete
+            }
+        }).setIcon(android.R.drawable.ic_dialog_alert).show();
     }
 }

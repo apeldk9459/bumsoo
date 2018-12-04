@@ -26,7 +26,9 @@
         <activity
             android:name=".NoticeBoard"
             android:label="@string/title_activity_notice_board"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".BoardView" />
+        <activity android:name=".BoardWrite"></activity>
     </application>
 
 </manifest>
