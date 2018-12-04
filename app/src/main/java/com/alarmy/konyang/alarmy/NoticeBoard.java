@@ -11,6 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ListView;
 
 public class NoticeBoard extends AppCompatActivity
@@ -45,6 +47,11 @@ public class NoticeBoard extends AppCompatActivity
             mMyAdapter.addItem("idx_"+i,"title_"+i,"name_"+i,"hit_"+i,"time_"+i);
         }
         mListView.setAdapter(mMyAdapter);
+    }
+
+    public void write(View view){
+        Intent i = new Intent(NoticeBoard.this, BoardWrite.class);
+        startActivity(i);
     }
 
     @Override

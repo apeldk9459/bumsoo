@@ -8,18 +8,24 @@
     tools:context=".NoticeBoard"
     tools:showIn="@layout/app_bar_notice_board">
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         >
+
         <ListView
+            android:id="@+id/notice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/notice"
-            android:choiceMode="singleChoice"
-            >
+            android:choiceMode="singleChoice">
+
 
         </ListView>
-
     </LinearLayout>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="글쓰기"
+        android:onClick="write"
+        />
 </android.support.constraint.ConstraintLayout>
