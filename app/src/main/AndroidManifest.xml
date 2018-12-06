@@ -29,6 +29,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".BoardView" />
         <activity android:name=".BoardWrite"></activity>
+
     </application>
 
 </manifest>

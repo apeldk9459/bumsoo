@@ -29,7 +29,6 @@ import java.util.Map;
 import static com.alarmy.konyang.alarmy.Constant.REGISTER_URL;
 
 public class Register extends Activity {
-
     String url=REGISTER_URL;
     EditText Id;
     EditText Passwd;

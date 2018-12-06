@@ -2,6 +2,7 @@ package com.alarmy.konyang.alarmy;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ import java.util.Map;
 import static com.alarmy.konyang.alarmy.Constant.BOARD_WRITE_URL;
 public class BoardWrite extends AppCompatActivity {
 
+    static int idx=1;
     EditText bTitle;
     EditText bName;
     EditText bText;
@@ -45,6 +47,7 @@ public class BoardWrite extends AppCompatActivity {
             js.accumulate("title", bTitle.getText().toString());
             js.accumulate("name", bName.getText().toString());
             js.accumulate("text", bText.getText().toString());
+            js.accumulate("idx",idx);
             VolleyPost(js.toString());
         } catch (Exception e){
         }
@@ -60,6 +63,10 @@ public class BoardWrite extends AppCompatActivity {
 
                     Dialog(msg);
                     Toast.makeText(BoardWrite.this, "Write Ok", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(BoardWrite.this, BoardWrite.class);
+                    i.putExtra("idx",idx);
+                    startActivity(i);
+                    idx++;
                 }catch (Exception e){
 
                 }

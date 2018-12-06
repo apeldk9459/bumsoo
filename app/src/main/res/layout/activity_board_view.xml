@@ -14,11 +14,11 @@
             android:layout_height="wrap_content"
             android:text="제목 : "
             />
-        <EditText
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/vtitle"
-            android:text="제목"
+            android:hint="제목"
             />
     </LinearLayout>
     <LinearLayout
@@ -29,11 +29,11 @@
             android:layout_height="wrap_content"
             android:text="작성자 : "
             />
-        <EditText
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/vname"
-            android:text="작성자"
+            android:hint="작성자"
             />
     </LinearLayout>
     <TextView
@@ -41,11 +41,11 @@
         android:layout_height="wrap_content"
         android:text="내용 "
         />
-    <EditText
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/vtext"
-        android:text="내용"
+        android:hint="내용"
         android:layout_weight="1"
         />
     <LinearLayout

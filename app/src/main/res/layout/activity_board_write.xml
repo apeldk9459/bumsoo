@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btitle"
-        android:text="제목"
+        android:hint="제목"
         />
     </LinearLayout>
     <LinearLayout
@@ -33,7 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/bname"
-        android:text="작성자"
+        android:hint="작성자"
         />
     </LinearLayout>
         <TextView
@@ -45,7 +45,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btext"
-        android:text="내용"
+        android:hint="내용"
         android:layout_weight="1"
         />
     <LinearLayout
