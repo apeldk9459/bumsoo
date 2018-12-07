@@ -11,12 +11,29 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
-public class NoticeBoard extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
-    private ListView mListView;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import static com.alarmy.konyang.alarmy.Constant.BOARD_LIST_URL;
+
+public class NoticeBoard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    private ListView mListView;
+    private MyAdapter adapter;
+    private ArrayList<MyItem> mItems;
+    String bTitle, bName, bTime, bIdx;
+    String url=BOARD_LIST_URL;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,19 +51,49 @@ public class NoticeBoard extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        mListView = (ListView)findViewById(R.id.notice);
-        dataSetting();
+        Intent intent = getIntent();
+        mListView = (ListView) findViewById(R.id.notice);
+        mItems = new ArrayList<MyItem>();
+
+        adapter = new MyAdapter(getApplicationContext(), mItems);
+        mListView.setAdapter(adapter);
+
+            RequestQueue queue = Volley.newRequestQueue(this);
+            JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+                @Override
+                public void onResponse(JSONArray response) {
+                    try {
+                        for (int i = 0; i < response.length(); i++) {
+                            JSONObject object = response.getJSONObject(i);
+
+                            bTitle = object.getString("title");
+                            bName = object.getString("name");
+                            bIdx = object.getString("idx");
+                            bTime = object.getString("time");
+
+                            MyItem myItem = new MyItem(bIdx, bTitle, bName, bTime);
+                            mItems.add(myItem);
+                        }
+                    } catch (JSONException e) {
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                }
+            });
+            queue.add(jsonArrayRequest);
+            mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Intent i = new Intent(NoticeBoard.this, BoardView.class);
+                    i.putExtra("idx", mItems.get(position).getIdx());
+                    startActivity(i);
+                }
+            });
+
     }
-    private void dataSetting(){
-
-        MyAdapter mMyAdapter=new MyAdapter();
-
-        for(int i=0; i<100; i++){
-            mMyAdapter.addItem("idx_"+i,"title_"+i,"name_"+i,"hit_"+i,"time_"+i);
-        }
-        mListView.setAdapter(mMyAdapter);
-    }
-
     public void write(View view){
         Intent i = new Intent(NoticeBoard.this, BoardWrite.class);
         startActivity(i);

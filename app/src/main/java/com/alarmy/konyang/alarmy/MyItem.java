@@ -4,7 +4,6 @@ public class MyItem {
     private String idx;
     private String title;
     private String name;
-    private String hit;
     private String time;
 
     public String getIdx(){
@@ -31,19 +30,18 @@ public class MyItem {
         this.name = name;
    }
 
-   public String getHit(){
-        return hit;
-   }
-
-    public void setHit(String hit) {
-        this.hit = hit;
-    }
-
     public String getTime(){
         return time;
     }
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public MyItem(String idx, String title, String name, String time){
+        this.idx=idx;
+        this.title=title;
+        this.name=name;
+        this.time=time;
     }
 }

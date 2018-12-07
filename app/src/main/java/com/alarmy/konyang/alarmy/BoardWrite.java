@@ -28,7 +28,7 @@ import java.util.Map;
 import static com.alarmy.konyang.alarmy.Constant.BOARD_WRITE_URL;
 public class BoardWrite extends AppCompatActivity {
 
-    static int idx=1;
+    int idx=1;
     EditText bTitle;
     EditText bName;
     EditText bText;
@@ -63,7 +63,7 @@ public class BoardWrite extends AppCompatActivity {
 
                     Dialog(msg);
                     Toast.makeText(BoardWrite.this, "Write Ok", Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(BoardWrite.this, BoardWrite.class);
+                    Intent i = new Intent(BoardWrite.this, BoardView.class);
                     i.putExtra("idx",idx);
                     startActivity(i);
                     idx++;
