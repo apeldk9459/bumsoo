@@ -1,10 +1,18 @@
 package com.alarmy.konyang.alarmy;
 
 public class MyItem {
+
     private String idx;
     private String title;
     private String name;
     private String time;
+
+   public MyItem(String idx, String title, String name, String time){
+        this.idx=idx;
+        this.title=title;
+        this.name=name;
+        this.time=time;
+    }
 
     public String getIdx(){
         return idx;
@@ -38,10 +46,4 @@ public class MyItem {
         this.time = time;
     }
 
-    public MyItem(String idx, String title, String name, String time){
-        this.idx=idx;
-        this.title=title;
-        this.name=name;
-        this.time=time;
-    }
 }

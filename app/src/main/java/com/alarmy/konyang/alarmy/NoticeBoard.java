@@ -26,6 +26,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+
 import static com.alarmy.konyang.alarmy.Constant.BOARD_LIST_URL;
 
 public class NoticeBoard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -34,6 +35,7 @@ public class NoticeBoard extends AppCompatActivity implements NavigationView.OnN
     private ArrayList<MyItem> mItems;
     String bTitle, bName, bTime, bIdx;
     String url=BOARD_LIST_URL;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,40 +53,13 @@ public class NoticeBoard extends AppCompatActivity implements NavigationView.OnN
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        Intent intent = getIntent();
         mListView = (ListView) findViewById(R.id.notice);
         mItems = new ArrayList<MyItem>();
-
-        adapter = new MyAdapter(getApplicationContext(), mItems);
+        adapter = new MyAdapter(NoticeBoard.this, mItems);
+        BoardList();
         mListView.setAdapter(adapter);
-
-            RequestQueue queue = Volley.newRequestQueue(this);
-            JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
-                @Override
-                public void onResponse(JSONArray response) {
-                    try {
-                        for (int i = 0; i < response.length(); i++) {
-                            JSONObject object = response.getJSONObject(i);
-
-                            bTitle = object.getString("title");
-                            bName = object.getString("name");
-                            bIdx = object.getString("idx");
-                            bTime = object.getString("time");
-
-                            MyItem myItem = new MyItem(bIdx, bTitle, bName, bTime);
-                            mItems.add(myItem);
-                        }
-                    } catch (JSONException e) {
-                    }
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-
-                }
-            });
-            queue.add(jsonArrayRequest);
-            mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        adapter.notifyDataSetChanged();
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Intent i = new Intent(NoticeBoard.this, BoardView.class);
@@ -93,6 +68,33 @@ public class NoticeBoard extends AppCompatActivity implements NavigationView.OnN
                 }
             });
 
+    }
+
+    public void BoardList(){
+        RequestQueue queue = Volley.newRequestQueue(this);
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                try {
+                    for (int i = 0; i < response.length(); i++) {
+                        JSONObject object = response.getJSONObject(i);
+
+                        bIdx = object.getString("num");
+                        bTime = object.getString("time");
+                        bTitle = object.getString("title");
+                        bName = object.getString("owner");
+                        mItems.add(new MyItem(bIdx,bTitle,bName,bTime));
+                    }
+                } catch (JSONException e) {
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        queue.add(jsonArrayRequest);
     }
     public void write(View view){
         Intent i = new Intent(NoticeBoard.this, BoardWrite.class);

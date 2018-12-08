@@ -45,9 +45,9 @@ public class BoardView extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            vTitle = response.getString("name");
-                            vName = response.getString("email");
-                            vText = response.getString("phone");
+                            vTitle = response.getString("title");
+                            vName = response.getString("owner");
+                            vText = response.getString("content");
                             title.setText(vTitle);
                             name.setText(vName);
                             text.setText(vText);
