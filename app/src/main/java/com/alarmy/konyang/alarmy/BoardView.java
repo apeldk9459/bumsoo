@@ -1,8 +1,9 @@
 package com.alarmy.konyang.alarmy;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -21,14 +22,13 @@ import static com.alarmy.konyang.alarmy.Constant.BOARD_VIEW_URL;
 public class BoardView extends AppCompatActivity {
 
     String url = BOARD_VIEW_URL;
-    int idx;
+    String idx;
     TextView title;
     TextView name;
     TextView text;
     String vTitle;
     String vName;
     String vText;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,8 +36,14 @@ public class BoardView extends AppCompatActivity {
         title = (TextView) findViewById(R.id.vtitle);
         name = (TextView) findViewById(R.id.vname);
         text = (TextView) findViewById(R.id.vtext);
-        idx = getIntent().getIntExtra("idx",1);
+        Intent i = getIntent();
+        idx = i.getExtras().getString("idx");
         sendRequest();
+    }
+    public void vedit(View view){
+        Intent i = new Intent(BoardView.this, BoardEdit.class);
+        i.putExtra("idx",idx);
+        startActivity(i);
     }
     public void sendRequest(){
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -49,9 +55,6 @@ public class BoardView extends AppCompatActivity {
                             vTitle = response.getString("title");
                             vName = response.getString("owner");
                             vText = response.getString("content");
-                            Log.d("JSON","-title :" +vTitle);
-                            Log.d("JSON","-name :" +vName);
-                            Log.d("JSON","-text :" +vText);
                             title.setText(vTitle);
                             name.setText(vName);
                             text.setText(vText);

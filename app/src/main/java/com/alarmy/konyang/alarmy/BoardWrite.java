@@ -7,7 +7,9 @@ import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -19,6 +21,7 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
@@ -26,22 +29,49 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.alarmy.konyang.alarmy.Constant.BOARD_WRITE_URL;
+import static com.alarmy.konyang.alarmy.Constant.NAME_SEARCH_URL;
+
 public class BoardWrite extends AppCompatActivity {
 
     int idx=1;
     EditText bTitle;
-    EditText bName;
+    TextView bName;
     EditText bText;
-    String url = BOARD_WRITE_URL;
+    String wurl = BOARD_WRITE_URL;
+    String url = NAME_SEARCH_URL;
+    String eNum=" ";
+    String eName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent i = getIntent();
+        eNum = i.getExtras().getString("eNum");
         setContentView(R.layout.activity_board_write);
         bTitle = (EditText) findViewById(R.id.btitle);
-        bName = (EditText) findViewById(R.id.bname);
+        bName = (TextView) findViewById(R.id.bname);
         bText = (EditText) findViewById(R.id.btext);
+        NameSearch();
     }
+    public void NameSearch(){
+        RequestQueue queue = Volley.newRequestQueue(this);
 
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url+eNum,null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    eName= response.getString("name");
+                    bName.setText(eName);
+
+                } catch (JSONException e) {
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        });
+        queue.add(jsonObjectRequest);
+    }
     public  void bcancel (View view)
     {
         Intent i = new Intent(BoardWrite.this, NoticeBoard.class);
@@ -60,18 +90,17 @@ public class BoardWrite extends AppCompatActivity {
     }
 
     public void VolleyPost(final String requestBody){
+
         RequestQueue queue = Volley.newRequestQueue(this);
-        JsonObjectRequest JOPR = new JsonObjectRequest(Request.Method.POST, url, null, new Response.Listener<JSONObject>() {
+
+        JsonObjectRequest JOPR = new JsonObjectRequest(Request.Method.POST, wurl, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try{
-                    String msg = response.getString("message");
+                        Intent i = new Intent(BoardWrite.this, BoardView.class);
+                        i.putExtra("idx", idx);
+                        startActivity(i);
 
-                    Toast.makeText(BoardWrite.this, "Write Ok", Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(BoardWrite.this, BoardView.class);
-                    i.putExtra("idx",idx);
-                    startActivity(i);
-                    idx++;
                 }catch (Exception e){
 
                 }

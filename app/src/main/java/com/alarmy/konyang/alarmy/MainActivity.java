@@ -31,6 +31,7 @@ import static com.alarmy.konyang.alarmy.Constant.LOGIN_URL;
 public class MainActivity extends Activity {
     EditText eId;
     EditText ePasswd;
+    String eNum = " ";
     String url=LOGIN_URL;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         eId = (EditText) findViewById(R.id.id);
         ePasswd = (EditText) findViewById(R.id.passwd);
+
     }
 
     public void Register(View view) {
@@ -46,17 +48,15 @@ public class MainActivity extends Activity {
     }
 
     public void Login(View view) throws JSONException {
-      /*  JSONObject js = new JSONObject();
+        JSONObject js = new JSONObject();
         try {
             js.accumulate("id", eId.getText().toString());
             js.accumulate("passwd", ePasswd.getText().toString());
-
             VolleyPost(js.toString());
         } catch (Exception e){
 
-        } */
-      Intent i = new Intent(MainActivity.this, MainPage.class);
-      startActivity(i);
+        }
+
     }
 
     public void VolleyPost(final String requestBody){
@@ -65,10 +65,10 @@ public class MainActivity extends Activity {
             @Override
             public void onResponse(JSONObject response) {
                 try{
-                    String msg = response.getString("message");
-
-                    Dialog(msg);
-                    Toast.makeText(MainActivity.this, "Login", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(MainActivity.this, MainPage.class);
+                    eNum=eId.getText().toString();
+                    i.putExtra("eNum",eNum);
+                    startActivity(i);
                 }catch (Exception e){
 
                 }

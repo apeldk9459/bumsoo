@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -41,7 +42,7 @@ public class NoticeBoard extends AppCompatActivity implements NavigationView.OnN
     private ArrayList<MyItem> mItems;
     String bTitle, bName, bTime, bIdx;
     String url=BOARD_LIST_URL;
-    TextView txv;
+    String eNum=" ";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,8 +59,8 @@ public class NoticeBoard extends AppCompatActivity implements NavigationView.OnN
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        txv = (TextView)findViewById(R.id.tv);
-        TextView();
+        Intent i = getIntent();
+        eNum = i.getExtras().getString("eNum");
         mListView = (ListView) findViewById(R.id.notice);
         mItems = new ArrayList<>();
         adapter = new MyAdapter(NoticeBoard.this, mItems);
@@ -75,38 +76,7 @@ public class NoticeBoard extends AppCompatActivity implements NavigationView.OnN
             });
 
     }
-    public void TextView(){
-        RequestQueue queue = Volley.newRequestQueue(this);
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-                for (int i = 0; i < response.length(); i++) {
-                    try {
-                        JSONObject Post = response.getJSONObject(i);
 
-                        bIdx = Post.getString("num");
-                        bTime = Post.getString("time");
-                        bTitle = Post.getString("title");
-                        bName = Post.getString("owner");
-                        Log.d("JSONTextView","-bIdx :" +bIdx);
-                        Log.d("JSONTextView","-bTime :" +bTime);
-                        Log.d("JSONTextView","-bTitle :" +bTitle);
-                        Log.d("JSONTextView","-bName :" +bName);
-                        txv.append("bIdx" + "  " + bTime + "  "+bTitle + "  " + bName +"\n");
-
-                    }catch (JSONException e){
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        });
-        queue.add(jsonArrayRequest);
-    }
     public void BoardList(){
         RequestQueue queue = Volley.newRequestQueue(this);
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
@@ -120,10 +90,6 @@ public class NoticeBoard extends AppCompatActivity implements NavigationView.OnN
                             bTime = object.getString("time");
                             bTitle = object.getString("title");
                             bName = object.getString("owner");
-                            Log.d("JSONListView","-bIdx :" +bIdx);
-                            Log.d("JSONListView","-bTime :" +bTime);
-                            Log.d("JSONListView","-bTitle :" +bTitle);
-                            Log.d("JSONLisView","-bName :" +bName);
                             mItems.add(new MyItem(bIdx,bTitle,bName,bTime));
                             adapter.notifyDataSetChanged();
                         }catch (JSONException e){
@@ -141,6 +107,7 @@ public class NoticeBoard extends AppCompatActivity implements NavigationView.OnN
     }
     public void write(View view){
         Intent i = new Intent(NoticeBoard.this, BoardWrite.class);
+        i.putExtra("eNum",eNum);
         startActivity(i);
     }
 

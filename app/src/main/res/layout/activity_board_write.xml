@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:text="작성자 : "
             />
-    <EditText
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/bname"
@@ -58,12 +58,12 @@
             android:layout_height="wrap_content"
             android:text="글쓰기"
             android:onClick="bwrite"
-            />
+        />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="취소"
-            android:onClick="bcancel"
+            android:onClick="ecancel"
             />
     </LinearLayout>
 </LinearLayout>

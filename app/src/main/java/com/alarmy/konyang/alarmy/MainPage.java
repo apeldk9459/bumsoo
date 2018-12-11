@@ -22,7 +22,7 @@ import android.widget.Toast;
 import java.text.Normalizer;
 
 public class MainPage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-
+    String eNum=" ";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +48,9 @@ public class MainPage extends AppCompatActivity implements NavigationView.OnNavi
         });
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        Intent i = getIntent();
+        eNum=i.getExtras().getString("eNum");
     }
 
     @Override
@@ -81,9 +84,12 @@ public class MainPage extends AppCompatActivity implements NavigationView.OnNavi
         Intent i;
         if (id == R.id.nav_camera) {
                 i = new Intent(MainPage.this, NoticeBoard.class);
+                i.putExtra("eNum",eNum);
                 startActivity(i);
         } else if (id == R.id.nav_gallery) {
-
+            i = new Intent(MainPage.this, List.class);
+            i.putExtra("eNum",eNum);
+            startActivity(i);
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
