@@ -29,6 +29,8 @@ public class BoardView extends AppCompatActivity {
     String vTitle;
     String vName;
     String vText;
+    TextView vCat;
+    String category;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,13 +38,17 @@ public class BoardView extends AppCompatActivity {
         title = (TextView) findViewById(R.id.vtitle);
         name = (TextView) findViewById(R.id.vname);
         text = (TextView) findViewById(R.id.vtext);
+        vCat = (TextView)findViewById(R.id.vcat);
         Intent i = getIntent();
         idx = i.getExtras().getString("idx");
+        category = i.getExtras().getString("category");
+        vCat.setText(category);
         sendRequest();
     }
     public void vedit(View view){
         Intent i = new Intent(BoardView.this, BoardEdit.class);
         i.putExtra("idx",idx);
+        i.putExtra("category",category);
         startActivity(i);
     }
     public void sendRequest(){

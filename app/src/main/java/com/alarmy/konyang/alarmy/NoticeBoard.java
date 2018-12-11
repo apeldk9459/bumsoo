@@ -81,7 +81,7 @@ public class NoticeBoard extends AppCompatActivity implements NavigationView.OnN
 
     public void BoardList(){
         RequestQueue queue = Volley.newRequestQueue(this);
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url+category, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                     for (int i = 0; i < response.length(); i++) {
@@ -110,6 +110,7 @@ public class NoticeBoard extends AppCompatActivity implements NavigationView.OnN
     public void write(View view){
         Intent i = new Intent(NoticeBoard.this, BoardWrite.class);
         i.putExtra("eNum",eNum);
+        i.putExtra("category",category);
         startActivity(i);
     }
 

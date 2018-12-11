@@ -37,15 +37,20 @@ public class BoardEdit extends AppCompatActivity {
     String idx;
     String vurl = BOARD_VIEW_URL;
     String vText,vTitle,vName;
+    String category;
+    TextView eCat;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_board_edit);
         Intent i = getIntent();
         idx=i.getExtras().getString("idx");
+        category=i.getExtras().getString("category");
         eName = (TextView)findViewById(R.id.ename);
         eText = (EditText)findViewById(R.id.etext);
         eTile = (TextView)findViewById(R.id.etitle);
+        eCat = (TextView)findViewById(R.id.ecat);
+        eCat.setText(category);
         sendRequest();
     }
     public  void eedit(View vietestw){
@@ -90,6 +95,7 @@ public class BoardEdit extends AppCompatActivity {
                 try{
                         Intent i = new Intent(BoardEdit.this, BoardView.class);
                         i.putExtra("idx", idx);
+                        i.putExtra("category",category);
                         startActivity(i);
                 }catch (Exception e){
 

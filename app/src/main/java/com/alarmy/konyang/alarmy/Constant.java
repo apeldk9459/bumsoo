@@ -8,5 +8,6 @@ public class Constant {
     public static String BOARD_EDIT_URL="http://cyberalarmy.herokuapp.com/boards/edit/";
     public static String BOARD_LIST_URL="http://cyberalarmy.herokuapp.com/boards/list/";
     public static String NAME_SEARCH_URL="http://cyberalarmy.herokuapp.com/users/find/";
-
+    public static String LIST_CREATE_URL="http://cyberalarmy.herokuapp.com/lists/add/";
+    public static String LIST_VIEW_URL="http://cyberalarmy.herokuapp.com/lists/view/";
 }

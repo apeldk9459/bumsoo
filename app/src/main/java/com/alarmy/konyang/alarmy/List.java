@@ -3,6 +3,7 @@ package com.alarmy.konyang.alarmy;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -28,14 +29,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.alarmy.konyang.alarmy.Constant.LIST_CREATE_URL;
+import static com.alarmy.konyang.alarmy.Constant.LIST_VIEW_URL;
+
 public class List extends AppCompatActivity {
     String eNum;
     private ListView boardList;
-    private ListAdapter listAdapter;
+    private ListAdapter listadapter;
     private ArrayList<ListItem> bList;
     EditText listInseart;
-    String insterturl;
-    String loadurl;
+    String insterturl=LIST_CREATE_URL;
+    String loadurl=LIST_VIEW_URL;
     String cat;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +50,8 @@ public class List extends AppCompatActivity {
         eNum = i.getExtras().getString("eNum");
         boardList = (ListView) findViewById(R.id.blist);
         bList=new ArrayList<>();
-        listAdapter = new ListAdapter(List.this, bList);
+        listadapter = new ListAdapter(List.this, bList);
+        boardList.setAdapter(listadapter);
         BoardList();
         boardList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -76,7 +81,7 @@ public class List extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject response) {
                 try{
-
+                    Toast.makeText(List.this,"게시판 생성완료",Toast.LENGTH_LONG).show();
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -116,7 +121,7 @@ public class List extends AppCompatActivity {
                         JSONObject object = response.getJSONObject(i);
                         cat = object.getString("category");
                         bList.add(new ListItem(cat));
-                        listAdapter.notify();
+                        listadapter.notifyDataSetChanged();
                     }catch (JSONException e){
                         e.printStackTrace();
                     }

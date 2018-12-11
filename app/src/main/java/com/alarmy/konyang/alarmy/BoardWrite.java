@@ -37,19 +37,24 @@ public class BoardWrite extends AppCompatActivity {
     EditText bTitle;
     TextView bName;
     EditText bText;
+    TextView bCat;
     String wurl = BOARD_WRITE_URL;
     String url = NAME_SEARCH_URL;
     String eNum=" ";
     String eName;
+    String category;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent i = getIntent();
         eNum = i.getExtras().getString("eNum");
+        category = i.getExtras().getString("category");
         setContentView(R.layout.activity_board_write);
         bTitle = (EditText) findViewById(R.id.btitle);
         bName = (TextView) findViewById(R.id.bname);
         bText = (EditText) findViewById(R.id.btext);
+        bCat = (TextView)findViewById(R.id.bcat);
+        bCat.setText(category);
         NameSearch();
     }
     public void NameSearch(){
@@ -83,6 +88,7 @@ public class BoardWrite extends AppCompatActivity {
             js.accumulate("title", bTitle.getText().toString());
             js.accumulate("name", bName.getText().toString());
             js.accumulate("text", bText.getText().toString());
+            js.accumulate("category",bCat.getText().toString());
             js.accumulate("idx",idx);
             VolleyPost(js.toString());
         } catch (Exception e){
@@ -99,6 +105,7 @@ public class BoardWrite extends AppCompatActivity {
                 try{
                         Intent i = new Intent(BoardWrite.this, BoardView.class);
                         i.putExtra("idx", idx);
+                        i.putExtra("category",category);
                         startActivity(i);
 
                 }catch (Exception e){
