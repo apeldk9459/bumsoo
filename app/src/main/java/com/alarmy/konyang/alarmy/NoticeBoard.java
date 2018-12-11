@@ -154,9 +154,12 @@ public class NoticeBoard extends AppCompatActivity implements NavigationView.OnN
             Intent i;
         if (id == R.id.nav_camera) {
             i = new Intent(NoticeBoard.this, MainPage.class);
+            i.putExtra("eNum",eNum);
             startActivity(i);
         } else if (id == R.id.nav_gallery) {
-
+            i = new Intent(NoticeBoard.this, List.class);
+            i.putExtra("eNum",eNum);
+            startActivity(i);
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
