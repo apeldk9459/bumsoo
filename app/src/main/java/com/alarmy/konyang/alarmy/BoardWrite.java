@@ -41,6 +41,12 @@ public class BoardWrite extends AppCompatActivity {
         bName = (EditText) findViewById(R.id.bname);
         bText = (EditText) findViewById(R.id.btext);
     }
+
+    public  void bcancel (View view)
+    {
+        Intent i = new Intent(BoardWrite.this, NoticeBoard.class);
+        startActivity(i);
+    }
     public void bwrite(View view){
         JSONObject js = new JSONObject();
         try {
@@ -61,7 +67,6 @@ public class BoardWrite extends AppCompatActivity {
                 try{
                     String msg = response.getString("message");
 
-                    Dialog(msg);
                     Toast.makeText(BoardWrite.this, "Write Ok", Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(BoardWrite.this, BoardView.class);
                     i.putExtra("idx",idx);

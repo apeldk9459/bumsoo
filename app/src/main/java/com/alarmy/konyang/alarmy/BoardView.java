@@ -2,6 +2,7 @@ package com.alarmy.konyang.alarmy;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -48,6 +49,9 @@ public class BoardView extends AppCompatActivity {
                             vTitle = response.getString("title");
                             vName = response.getString("owner");
                             vText = response.getString("content");
+                            Log.d("JSON","-title :" +vTitle);
+                            Log.d("JSON","-name :" +vName);
+                            Log.d("JSON","-text :" +vText);
                             title.setText(vTitle);
                             name.setText(vName);
                             text.setText(vText);

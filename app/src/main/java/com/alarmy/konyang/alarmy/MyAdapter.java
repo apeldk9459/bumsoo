@@ -35,16 +35,18 @@ public class MyAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent){
 
         if(convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.notice_list, null);
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(R.layout.notice_list,parent, false);
+        }
             idx = (TextView) convertView.findViewById(R.id.idx);
             title = (TextView) convertView.findViewById(R.id.title);
             name = (TextView) convertView.findViewById(R.id.name);
             time = (TextView) convertView.findViewById(R.id.time);
-        }
-        idx.setText(mItems.get(position).getIdx());
-        title.setText(mItems.get(position).getTitle());
-        name.setText(mItems.get(position).getName());
-        time.setText(mItems.get(position).getTime());
+
+            idx.setText(mItems.get(position).getIdx());
+            title.setText(mItems.get(position).getTitle());
+            name.setText(mItems.get(position).getName());
+            time.setText(mItems.get(position).getTime());
 
         return convertView;
     }
