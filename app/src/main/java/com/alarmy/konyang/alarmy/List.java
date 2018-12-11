@@ -52,6 +52,7 @@ public class List extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent i = new Intent(List.this, NoticeBoard.class);
+                i.putExtra("eNum",eNum);
                 i.putExtra("category",bList.get(position).getCategory());
                 startActivity(i);
             }

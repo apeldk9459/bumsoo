@@ -43,6 +43,7 @@ public class NoticeBoard extends AppCompatActivity implements NavigationView.OnN
     String bTitle, bName, bTime, bIdx;
     String url=BOARD_LIST_URL;
     String eNum=" ";
+    String category;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +62,7 @@ public class NoticeBoard extends AppCompatActivity implements NavigationView.OnN
         navigationView.setNavigationItemSelectedListener(this);
         Intent i = getIntent();
         eNum = i.getExtras().getString("eNum");
+        category = i.getExtras().getString("category");
         mListView = (ListView) findViewById(R.id.notice);
         mItems = new ArrayList<>();
         adapter = new MyAdapter(NoticeBoard.this, mItems);
