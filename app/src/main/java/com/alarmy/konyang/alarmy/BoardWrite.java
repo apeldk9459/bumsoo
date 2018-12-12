@@ -33,13 +33,14 @@ import static com.alarmy.konyang.alarmy.Constant.NAME_SEARCH_URL;
 
 public class BoardWrite extends AppCompatActivity {
 
-    int idx=1;
+    String idx;
     EditText bTitle;
     TextView bName;
     EditText bText;
     TextView bCat;
     String wurl = BOARD_WRITE_URL;
     String url = NAME_SEARCH_URL;
+    String getIdxurl;
     String eNum=" ";
     String eName;
     String category;
@@ -57,6 +58,7 @@ public class BoardWrite extends AppCompatActivity {
         bCat.setText(category);
         NameSearch();
     }
+
     public void NameSearch(){
         RequestQueue queue = Volley.newRequestQueue(this);
 
@@ -80,6 +82,7 @@ public class BoardWrite extends AppCompatActivity {
     public  void bcancel (View view)
     {
         Intent i = new Intent(BoardWrite.this, NoticeBoard.class);
+        i.putExtra("category",category);
         startActivity(i);
     }
     public void bwrite(View view){
@@ -89,7 +92,8 @@ public class BoardWrite extends AppCompatActivity {
             js.accumulate("name", bName.getText().toString());
             js.accumulate("text", bText.getText().toString());
             js.accumulate("category",bCat.getText().toString());
-            js.accumulate("idx",idx);
+            js.accumulate("ownerid",eNum);
+            js.accumulate("category",category);
             VolleyPost(js.toString());
         } catch (Exception e){
         }
@@ -103,10 +107,13 @@ public class BoardWrite extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject response) {
                 try{
+                        idx = response.getString("idx");
                         Dialog("글작성 성공");
                         Intent i = new Intent(BoardWrite.this, BoardView.class);
                         i.putExtra("idx", idx);
                         i.putExtra("category",category);
+                        i.putExtra("eNum",eNum);
+                        i.putExtra("ownerId",eNum);
                         startActivity(i);
 
                 }catch (Exception e){

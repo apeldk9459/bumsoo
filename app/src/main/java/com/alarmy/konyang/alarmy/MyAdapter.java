@@ -16,6 +16,8 @@ public class MyAdapter extends BaseAdapter {
     TextView title;
     TextView name;
     TextView time;
+    TextView num;
+    TextView category;
     public MyAdapter(Context context, ArrayList<MyItem> mItems){
         this.context = context;
         this.mItems = mItems;
@@ -42,11 +44,13 @@ public class MyAdapter extends BaseAdapter {
             title = (TextView) convertView.findViewById(R.id.title);
             name = (TextView) convertView.findViewById(R.id.name);
             time = (TextView) convertView.findViewById(R.id.time);
+            category = (TextView) convertView.findViewById(R.id.cate);
 
             idx.setText(mItems.get(position).getIdx());
             title.setText(mItems.get(position).getTitle());
             name.setText(mItems.get(position).getName());
             time.setText(mItems.get(position).getTime());
+            category.setText(mItems.get(position).getCategory());
 
         return convertView;
     }

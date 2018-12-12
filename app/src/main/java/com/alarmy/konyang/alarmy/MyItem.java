@@ -6,12 +6,17 @@ public class MyItem {
     private String title;
     private String name;
     private String time;
+    private String category;
 
-   public MyItem(String idx, String title, String name, String time){
+    private String ownerid;
+
+   public MyItem(String idx, String title, String name, String time, String category, String ownerid){
         this.idx=idx;
         this.title=title;
         this.name=name;
         this.time=time;
+        this.category=category;
+        this.ownerid=ownerid;
     }
 
     public String getIdx(){
@@ -46,4 +51,16 @@ public class MyItem {
         this.time = time;
     }
 
+    public String getCategory() {
+       return category;
+    }
+    public void setCategory(String category) {
+        this.category = category;
+    }
+    public String getOwnerid(){
+       return ownerid;
+    }
+    public void setOwnerid(String ownerid){
+       this.ownerid=ownerid;
+    }
 }

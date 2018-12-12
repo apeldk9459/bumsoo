@@ -44,6 +44,7 @@ public class NoticeBoard extends AppCompatActivity implements NavigationView.OnN
     String url=BOARD_LIST_URL;
     String eNum=" ";
     String category;
+    String ownerId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +74,9 @@ public class NoticeBoard extends AppCompatActivity implements NavigationView.OnN
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Intent i = new Intent(NoticeBoard.this, BoardView.class);
                     i.putExtra("idx", mItems.get(position).getIdx());
+                    i.putExtra("ownerId",mItems.get(position).getOwnerid());
+                    i.putExtra("category",category);
+                    i.putExtra("eNum",eNum);
                     startActivity(i);
                 }
             });
@@ -87,12 +91,13 @@ public class NoticeBoard extends AppCompatActivity implements NavigationView.OnN
                     for (int i = 0; i < response.length(); i++) {
                         try {
                             JSONObject object = response.getJSONObject(i);
-
                             bIdx = object.getString("num");
                             bTime = object.getString("time");
                             bTitle = object.getString("title");
                             bName = object.getString("owner");
-                            mItems.add(new MyItem(bIdx,bTitle,bName,bTime));
+                            category = object.getString("category");
+                            ownerId = object.getString("ownerid");
+                            mItems.add(new MyItem(bIdx,bTitle,bName,bTime,category,ownerId));
                             adapter.notifyDataSetChanged();
                         }catch (JSONException e){
                         e.printStackTrace();

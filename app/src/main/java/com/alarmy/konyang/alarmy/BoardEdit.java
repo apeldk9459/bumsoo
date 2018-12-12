@@ -37,7 +37,9 @@ public class BoardEdit extends AppCompatActivity {
     String idx;
     String vurl = BOARD_VIEW_URL;
     String vText,vTitle,vName;
-    String category;
+    String category,category1;
+    String ownerId;
+    String eNum;
     TextView eCat;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,8 @@ public class BoardEdit extends AppCompatActivity {
         Intent i = getIntent();
         idx=i.getExtras().getString("idx");
         category=i.getExtras().getString("category");
+        eNum = i.getExtras().getString("eNum");
+        ownerId = i.getExtras().getString("ownerId");
         eName = (TextView)findViewById(R.id.ename);
         eText = (EditText)findViewById(R.id.etext);
         eTile = (TextView)findViewById(R.id.etitle);
@@ -73,6 +77,7 @@ public class BoardEdit extends AppCompatActivity {
                     vTitle = response.getString("title");
                     vName = response.getString("owner");
                     vText = response.getString("content");
+                    category1 = response.getString("category");
                     eTile.setText(vTitle);
                     eName.setText(vName);
                     eText.setText(vText);
@@ -97,6 +102,9 @@ public class BoardEdit extends AppCompatActivity {
                         Intent i = new Intent(BoardEdit.this, BoardView.class);
                         i.putExtra("idx", idx);
                         i.putExtra("category",category);
+                        i.putExtra("ownerId", ownerId);
+                        i.putExtra("category", category);
+                        i.putExtra("eNum", eNum);
                         startActivity(i);
                 }catch (Exception e){
 

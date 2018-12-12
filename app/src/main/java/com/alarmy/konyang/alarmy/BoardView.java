@@ -19,13 +19,14 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import static com.alarmy.konyang.alarmy.Constant.BOARD_DELETE_URL;
 import static com.alarmy.konyang.alarmy.Constant.BOARD_VIEW_URL;
 
 
 public class BoardView extends AppCompatActivity {
 
     String url = BOARD_VIEW_URL;
-    String deleteUrl;
+    String deleteUrl = BOARD_DELETE_URL;
     String idx;
     TextView title;
     TextView name;
@@ -34,7 +35,9 @@ public class BoardView extends AppCompatActivity {
     String vName;
     String vText;
     TextView vCat;
-    String category;
+    String category,category1;
+    String eNum;
+    String ownerId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,17 +49,30 @@ public class BoardView extends AppCompatActivity {
         Intent i = getIntent();
         idx = i.getExtras().getString("idx");
         category = i.getExtras().getString("category");
+        eNum = i.getExtras().getString("eNum");
+        ownerId = i.getExtras().getString("ownerId");
         vCat.setText(category);
         sendRequest();
     }
     public void vedit(View view){
-        Intent i = new Intent(BoardView.this, BoardEdit.class);
-        i.putExtra("idx",idx);
-        i.putExtra("category",category);
-        startActivity(i);
+        if(ownerId == eNum) {
+            Intent i = new Intent(BoardView.this, BoardEdit.class);
+            i.putExtra("idx", idx);
+            i.putExtra("eNum", eNum);
+            i.putExtra("ownerId", ownerId);
+            i.putExtra("category", category);
+            startActivity(i);
+        }
+        else{
+            Dialog("권한이없습니다.");
+        }
     }
     public void vdelete(View view){
-        sendDelete();
+        if(ownerId == eNum) {
+            sendDelete();
+        }else{
+            Dialog("권한이 없습니다.");
+        }
     }
     public  void sendDelete(){
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -65,6 +81,9 @@ public class BoardView extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject response) {
                     Dialog("글삭제 성공");
+                    Intent i = new Intent(BoardView.this, List.class);
+                    i.putExtra("eNum",eNum);
+                    startActivity(i);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -85,6 +104,7 @@ public class BoardView extends AppCompatActivity {
                             vTitle = response.getString("title");
                             vName = response.getString("owner");
                             vText = response.getString("content");
+                            category1 = response.getString("category");
                             title.setText(vTitle);
                             name.setText(vName);
                             text.setText(vText);

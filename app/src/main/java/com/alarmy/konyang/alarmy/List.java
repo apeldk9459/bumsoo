@@ -33,6 +33,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.alarmy.konyang.alarmy.Constant.LIST_CREATE_URL;
+import static com.alarmy.konyang.alarmy.Constant.LIST_DELETE_URL;
 import static com.alarmy.konyang.alarmy.Constant.LIST_VIEW_URL;
 
 public class List extends AppCompatActivity {
@@ -43,6 +44,7 @@ public class List extends AppCompatActivity {
     EditText listInseart;
     String insterturl=LIST_CREATE_URL;
     String loadurl=LIST_VIEW_URL;
+    String deleteurl=LIST_DELETE_URL;
     String cat;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +78,50 @@ public class List extends AppCompatActivity {
         }
     }
     public void bdelete(View view){
+        JSONObject js = new JSONObject();
+        try {
+            js.accumulate("boardlist", listInseart.getText().toString());
+            deleteVolleyPost(js.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+    public void deleteVolleyPost(final String requestBody){
+        RequestQueue queue = Volley.newRequestQueue(this);
+        JsonObjectRequest JOPR = new JsonObjectRequest(Request.Method.POST, deleteurl, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try{
+                    Dialog("게시판 삭제 성공");
+                    listadapter.notifyDataSetChanged();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Dialog("게시판 삭제 실패 권한을 확인해 주새요");
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Content-Type", "application/json");
+                return headers;
+            }
 
+            @Override
+            public byte[] getBody() {
+                try {
+                    return requestBody == null ? null : requestBody.getBytes("utf-8");
+                } catch (UnsupportedEncodingException uee) {
+                    VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", requestBody, "utf-8");
+                    return null;
+                }
+            }
+        };
+        queue.add(JOPR);
     }
     public void VolleyPost(final String requestBody){
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -85,6 +130,7 @@ public class List extends AppCompatActivity {
             public void onResponse(JSONObject response) {
                 try{
                     Dialog("게시판 생성 성공");
+                    listadapter.notifyDataSetChanged();
                 }catch (Exception e){
                     e.printStackTrace();
                 }
