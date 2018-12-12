@@ -43,11 +43,6 @@ public class MainPage extends AppCompatActivity implements NavigationView.OnNavi
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener(){
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
-                String date = ""+year+"/"+(month+1)+"/"+dayOfMonth;
-                Intent i = new Intent(MainPage.this, DateView.class);
-                i.putExtra("eNum",eNum);
-                i.putExtra("date",date);
-                startActivity(i);
                 Toast.makeText(MainPage.this,""+year+"/"+(month+1)+"/"+dayOfMonth, 0).show();
             }
         });

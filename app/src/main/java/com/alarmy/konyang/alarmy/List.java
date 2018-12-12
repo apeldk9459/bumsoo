@@ -93,7 +93,9 @@ public class List extends AppCompatActivity {
             public void onResponse(JSONObject response) {
                 try{
                     Dialog("게시판 삭제 성공");
-                    listadapter.notifyDataSetChanged();
+                    Intent i = new Intent(List.this,List.class);
+                    i.putExtra("eNum",eNum);
+                    startActivity(i);
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -130,6 +132,9 @@ public class List extends AppCompatActivity {
             public void onResponse(JSONObject response) {
                 try{
                     Dialog("게시판 생성 성공");
+                    Intent i = new Intent(List.this,List.class);
+                    i.putExtra("eNum",eNum);
+                    startActivity(i);
                     onResume();
                 }catch (Exception e){
                     e.printStackTrace();
