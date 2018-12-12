@@ -54,6 +54,12 @@ public class BoardView extends AppCompatActivity {
         vCat.setText(category);
         sendRequest();
     }
+    public void gotoboard(View view){
+        Intent i = new Intent(BoardView.this,NoticeBoard.class);
+        i.putExtra("eNum",eNum);
+        i.putExtra("category",category);
+        startActivity(i);
+    }
     public void vedit(View view){
         if(ownerId == eNum) {
             Intent i = new Intent(BoardView.this, BoardEdit.class);

@@ -82,6 +82,7 @@ public class BoardWrite extends AppCompatActivity {
     public  void bcancel (View view)
     {
         Intent i = new Intent(BoardWrite.this, NoticeBoard.class);
+        i.putExtra("eNum",eNum);
         i.putExtra("category",category);
         startActivity(i);
     }
@@ -93,7 +94,6 @@ public class BoardWrite extends AppCompatActivity {
             js.accumulate("text", bText.getText().toString());
             js.accumulate("category",bCat.getText().toString());
             js.accumulate("ownerid",eNum);
-            js.accumulate("category",category);
             VolleyPost(js.toString());
         } catch (Exception e){
         }
