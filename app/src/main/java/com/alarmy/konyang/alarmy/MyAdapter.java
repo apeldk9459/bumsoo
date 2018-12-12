@@ -52,6 +52,7 @@ public class MyAdapter extends BaseAdapter {
             time.setText(mItems.get(position).getTime());
             category.setText(mItems.get(position).getCategory());
 
+
         return convertView;
     }
 

@@ -8,15 +8,15 @@ public class MyItem {
     private String time;
     private String category;
 
-    private String ownerid;
+    private String ownerId;
 
-   public MyItem(String idx, String title, String name, String time, String category, String ownerid){
+   public MyItem(String idx, String title, String name, String time, String category, String ownerId){
         this.idx=idx;
         this.title=title;
         this.name=name;
         this.time=time;
         this.category=category;
-        this.ownerid=ownerid;
+        this.ownerId=ownerId;
     }
 
     public String getIdx(){
@@ -58,9 +58,9 @@ public class MyItem {
         this.category = category;
     }
     public String getOwnerid(){
-       return ownerid;
+       return ownerId;
     }
-    public void setOwnerid(String ownerid){
-       this.ownerid=ownerid;
+    public void setOwnerid(String ownerId){
+       this.ownerId=ownerId;
     }
 }

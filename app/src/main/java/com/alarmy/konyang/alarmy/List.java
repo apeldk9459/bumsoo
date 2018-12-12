@@ -130,7 +130,7 @@ public class List extends AppCompatActivity {
             public void onResponse(JSONObject response) {
                 try{
                     Dialog("게시판 생성 성공");
-                    listadapter.notifyDataSetChanged();
+                    onResume();
                 }catch (Exception e){
                     e.printStackTrace();
                 }

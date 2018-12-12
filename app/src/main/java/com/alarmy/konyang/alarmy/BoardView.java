@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -61,7 +62,7 @@ public class BoardView extends AppCompatActivity {
         startActivity(i);
     }
     public void vedit(View view){
-        if(ownerId == eNum) {
+        if(eNum.equals(ownerId)) {
             Intent i = new Intent(BoardView.this, BoardEdit.class);
             i.putExtra("idx", idx);
             i.putExtra("eNum", eNum);
@@ -74,7 +75,7 @@ public class BoardView extends AppCompatActivity {
         }
     }
     public void vdelete(View view){
-        if(ownerId == eNum) {
+        if(eNum.equals(ownerId)) {
             sendDelete();
         }else{
             Dialog("권한이 없습니다.");
@@ -87,8 +88,9 @@ public class BoardView extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject response) {
                     Dialog("글삭제 성공");
-                    Intent i = new Intent(BoardView.this, List.class);
+                    Intent i = new Intent(BoardView.this, NoticeBoard.class);
                     i.putExtra("eNum",eNum);
+                    i.putExtra("category", category);
                     startActivity(i);
             }
         }, new Response.ErrorListener() {

@@ -88,13 +88,11 @@ public class MainPage extends AppCompatActivity implements NavigationView.OnNavi
         int id = item.getItemId();
         Intent i;
         if (id == R.id.nav_camera) {
-                i = new Intent(MainPage.this, NoticeBoard.class);
-                i.putExtra("eNum",eNum);
-                startActivity(i);
-        } else if (id == R.id.nav_gallery) {
             i = new Intent(MainPage.this, List.class);
             i.putExtra("eNum",eNum);
             startActivity(i);
+        } else if (id == R.id.nav_gallery) {
+
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
