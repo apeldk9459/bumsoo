@@ -1,6 +1,9 @@
 package com.alarmy.konyang.alarmy;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -22,6 +25,7 @@ import static com.alarmy.konyang.alarmy.Constant.BOARD_VIEW_URL;
 public class BoardView extends AppCompatActivity {
 
     String url = BOARD_VIEW_URL;
+    String deleteUrl;
     String idx;
     TextView title;
     TextView name;
@@ -51,6 +55,26 @@ public class BoardView extends AppCompatActivity {
         i.putExtra("category",category);
         startActivity(i);
     }
+    public void vdelete(View view){
+        sendDelete();
+    }
+    public  void sendDelete(){
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, deleteUrl+idx,null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                    Dialog("글삭제 성공");
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Dialog("글삭제 실패");
+            }
+        });
+        queue.add(jsonObjectRequest);
+    }
+
     public void sendRequest(){
         RequestQueue queue = Volley.newRequestQueue(this);
 
@@ -73,5 +97,18 @@ public class BoardView extends AppCompatActivity {
             }
         });
         queue.add(jsonObjectRequest);
+    }
+    public void Dialog(String title){
+        AlertDialog.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new AlertDialog.Builder(BoardView.this, android.R.style.Theme_Material_Dialog_Alert);
+        } else {
+            builder = new AlertDialog.Builder(BoardView.this);
+        }
+        builder.setTitle(title).setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                // continue with delete
+            }
+        }).setIcon(android.R.drawable.ic_dialog_alert).show();
     }
 }

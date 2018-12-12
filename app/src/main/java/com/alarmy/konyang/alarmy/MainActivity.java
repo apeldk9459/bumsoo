@@ -76,7 +76,7 @@ public class MainActivity extends Activity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-               Dialog(error.toString());
+               Dialog("로그인 실패 ID 또는 PASSWORD를 확인해 주세요");
             }
         }) {
             @Override

@@ -78,9 +78,9 @@ public class Register extends Activity {
             @Override
             public void onResponse(JSONObject response) {
                 try{
-                    String msg = response.getString("message");
-                    Dialog(msg);
-                    Toast.makeText(Register.this, msg, Toast.LENGTH_SHORT).show();
+                    Dialog("회원가입 성공");
+                    Intent i = new Intent(Register.this, MainActivity.class);
+                    startActivity(i);
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -88,7 +88,7 @@ public class Register extends Activity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Dialog(error.toString());
+                Dialog("회원가입 실패");
             }
         }) {
             @Override

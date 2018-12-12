@@ -103,6 +103,7 @@ public class BoardWrite extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject response) {
                 try{
+                        Dialog("글작성 성공");
                         Intent i = new Intent(BoardWrite.this, BoardView.class);
                         i.putExtra("idx", idx);
                         i.putExtra("category",category);
@@ -115,7 +116,7 @@ public class BoardWrite extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Dialog(error.toString());
+                Dialog("글작성 실패");
             }
         }) {
             @Override

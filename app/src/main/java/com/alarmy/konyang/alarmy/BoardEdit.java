@@ -93,6 +93,7 @@ public class BoardEdit extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject response) {
                 try{
+                        Dialog("글수정 성공");
                         Intent i = new Intent(BoardEdit.this, BoardView.class);
                         i.putExtra("idx", idx);
                         i.putExtra("category",category);
@@ -104,7 +105,7 @@ public class BoardEdit extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Dialog(error.toString());
+                Dialog("글수정 실패");
             }
         }) {
             @Override

@@ -1,6 +1,9 @@
 package com.alarmy.konyang.alarmy;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -81,7 +84,7 @@ public class List extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject response) {
                 try{
-                    Toast.makeText(List.this,"게시판 생성완료",Toast.LENGTH_LONG).show();
+                    Dialog("게시판 생성 성공");
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -89,7 +92,7 @@ public class List extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Dialog("게시판 생성 실패 권한을 확인해 주새요");
             }
         }) {
             @Override
@@ -123,7 +126,7 @@ public class List extends AppCompatActivity {
                         bList.add(new ListItem(cat));
                         listadapter.notifyDataSetChanged();
                     }catch (JSONException e){
-                        e.printStackTrace();
+
                     }
                 }
             }
@@ -133,5 +136,18 @@ public class List extends AppCompatActivity {
             }
         });
         queue.add(jsonArrayRequest);
+    }
+    public void Dialog(String title){
+        AlertDialog.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new AlertDialog.Builder(List.this, android.R.style.Theme_Material_Dialog_Alert);
+        } else {
+            builder = new AlertDialog.Builder(List.this);
+        }
+        builder.setTitle(title).setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                // continue with delete
+            }
+        }).setIcon(android.R.drawable.ic_dialog_alert).show();
     }
 }
